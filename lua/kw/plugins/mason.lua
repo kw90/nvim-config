@@ -29,6 +29,8 @@ return {
                 "pylsp",
                 "gopls",
                 "yamlls",
+                "bashls",
+                "marksman",
             },
             -- auto-install configured servers
             automatic_installation = true,
@@ -40,6 +42,12 @@ return {
                 "stylua", -- lua formatter
                 "delve", -- go debugger
                 "debugpy", -- python debugger
+                "ruff", -- python linter
+                "shellcheck", -- shell linter
+                "shfmt", -- shell formatter
+                "stylua", -- lua formatter
+                "yamllint", -- yaml linter
+                "mypy", -- python type checker
             },
         })
     end,
