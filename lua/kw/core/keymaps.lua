@@ -53,3 +53,8 @@ keymap.set("x", "<leader>p", "p")
 
 -- Replace
 keymap.set("n", "<C-s>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- Plugins keymaps --
+vim.keymap.set("n", "<leader>ca", function()
+	require("tiny-code-action").code_action()
+end, { noremap = true, silent = true })
