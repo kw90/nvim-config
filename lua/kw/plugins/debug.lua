@@ -2,81 +2,18 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
         "rcarriga/nvim-dap-ui",
-	"nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
-        -- "nvim-telescope/telescope-dap.nvim",
+        "nvim-neotest/nvim-nio",
+        "nvim-telescope/telescope-dap.nvim",
         "leoluz/nvim-dap-go",
         "mfussenegger/nvim-dap-python",
-        {
-            "stevearc/overseer.nvim",
-            config = function()
-                local overseer = require("overseer")
-                overseer.setup({
-                    dap = false,
-                    log = {
-                        {
-                            type = "notify",
-                            level = vim.log.levels.WARN,
-                        },
-                    },
-                })
-
-                vim.keymap.set("n", "<leader>tr", "<cmd>OverseerRun<cr>", { desc = "Show task run menu" })
-                vim.keymap.set("n", "<leader>to", "<cmd>OverseerToggle<cr>", { desc = "Show task runs" })
-            end,
-        },
-        {
-            "Weissle/persistent-breakpoints.nvim",
-            config = function()
-                local persistent_breakpoints = require("persistent-breakpoints")
-                persistent_breakpoints.setup({
-                    load_breakpoints_event = { "BufReadPost" },
-                })
-            end,
-        },
     },
     config = function()
         local dap, dapui = require("dap"), require("dapui")
 
         -- Setup dap-ui
-        dapui.setup({
-            -- Custom layout with no console
-            -- Console only supports an integrated terminal, which is empty when attaching to a remote debugger
-            layouts = {
-                {
-                    elements = {
-                        {
-                            id = "scopes",
-                            size = 0.25,
-                        },
-                        {
-                            id = "breakpoints",
-                            size = 0.25,
-                        },
-                        {
-                            id = "stacks",
-                            size = 0.25,
-                        },
-                        {
-                            id = "watches",
-                            size = 0.25,
-                        },
-                    },
-                    position = "left",
-                    size = 40,
-                },
-                {
-                    elements = {
-                        {
-                            id = "repl",
-                            size = 1,
-                        },
-                    },
-                    position = "bottom",
-                    size = 15,
-                },
-            },
-        })
+        dapui.setup()
+
         -- Hook dapui into dap events
         dap.listeners.before.attach.dapui_config = function()
             dapui.open()
@@ -90,6 +27,12 @@ return {
         dap.listeners.before.event_exited.dapui_config = function()
             dapui.close()
         end
+
+        -- Setup virtual text
+        local dap_virtual_text = require("nvim-dap-virtual-text")
+        dap_virtual_text.setup({
+            virt_text_pos = 'eol'
+        })
 
         -- Keymaps
         vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Dap UI" })
@@ -105,7 +48,8 @@ return {
         })
 
         local dap_python = require("dap-python")
-        dap_python.setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+        dap_python.setup("python")
+
 
         -- Keymaps
         vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
@@ -128,14 +72,9 @@ return {
 
         -- Visuals
         vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
-
-        -- Setup overseer
-        require("dap.ext.vscode").json_decode = require("overseer.json").decode
-        require("overseer").patch_dap(true)
+        vim.fn.sign_define("DapStopped", { text = "➡️", texthl = "", numhl = "", linehl = "" })
 
         -- Load launch.json
-        if vim.fn.filereadable(".vscode/launch.json") then
-            require("dap.ext.vscode").load_launchjs(".vscode/launch.json")
-        end
+        require("dap.ext.vscode").load_launchjs()
     end,
 }

@@ -1,2 +1,7 @@
--- return { "python-rope/ropevim" }
-return {}
+
+return {
+    "python-rope/ropevim",
+    opts = {
+        -- options
+    },
+}
