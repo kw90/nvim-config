@@ -1,5 +1,5 @@
 return {
-	"Exafunction/codeium.nvim",
+	"Exafunction/windsurf.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"hrsh7th/nvim-cmp",
@@ -8,6 +8,6 @@ return {
 		require("codeium").setup({
 			enable_chat = true,
 		})
-		vim.api.nvim_set_keymap("n", "<leader>cc", "<cmd>Codeium Chat<CR>", { noremap = true, silent = true })
+		vim.api.nvim_set_keymap("n", "<leader>cw", "<cmd>Codeium Chat<CR>", { noremap = true, silent = true })
 	end,
 }
