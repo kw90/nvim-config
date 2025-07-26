@@ -11,7 +11,7 @@ return {
 
         mason_lspconfig.setup({
             ensure_installed = {
-                "pyright",
+                "basedpyright",
                 "ruff",
                 "lua_ls",
                 "pylsp",
@@ -23,16 +23,16 @@ return {
             },
             automatic_installation = true,
             automatic_enable = {
-                exclude = { "pyright", "ruff", "pylsp" }
+                exclude = { "pyright", "basedpyright", "ruff", "pylsp" }
             },
         })
 
         -- Setup LSP servers
-        local servers = { "pyright", "ruff", "lua_ls", "pylsp" }
+        local servers = { "basedpyright", "ruff", "lua_ls", "pylsp" }
 
         for _, server in pairs(servers) do
-            if server == "pyright" then
-                lspconfig.pyright.setup({
+            if server == "basedpyright" then
+                lspconfig.basedpyright.setup({
                     settings = {
                         python = {
                             analysis = {
@@ -100,6 +100,18 @@ return {
                                 filter = function(c) return c.name == "ruff" end
                             }
                         end, { desc = "LSP: Format with Ruff", unpack(opts) })
+                        vim.keymap.set('n', '<leader>vfi', function()
+                            vim.lsp.buf.code_action({
+                                context = { only = { "source.organizeImports" } },
+                                apply = true
+                            })
+                        end, { desc = "Ruff: Organize imports", unpack(opts) })
+                        vim.keymap.set('n', '<leader>vfx', function()
+                            vim.lsp.buf.code_action({
+                                context = { only = { "source.fixAll" } },
+                                apply = true
+                            })
+                        end, { desc = "Ruff: Fix all", unpack(opts) })
                     end,
                 })
             elseif server == "pylsp" then
