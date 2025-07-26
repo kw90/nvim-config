@@ -53,5 +53,6 @@ vim.o.laststatus = 3
 
 -- set virtualenv directory
 vim.g.virtualenv_directory = "~/.virtualenvs"
+vim.g.python3_host_prog = vim.fn.expand('~/.config/nvim/venv/bin/python')
 
 vim.g.cyberdream_colors = { border = "orange" }
