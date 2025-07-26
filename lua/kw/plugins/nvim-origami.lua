@@ -1,9 +1,11 @@
 return {
 	"chrisgrieser/nvim-origami",
-    dependencies = {
-      "kevinhwang91/promise-async",
-      "kevinhwang91/nvim-ufo"
-    },
-	event = "BufReadPost", -- later or on keypress would prevent saving folds
-	opts = true, -- needed even when using default config
+	event = "VeryLazy",
+	opts = {}, -- needed even when using default config
+
+	-- recommended: disable vim's auto-folding
+	init = function()
+		vim.opt.foldlevel = 99
+		vim.opt.foldlevelstart = 99
+	end,
 }
