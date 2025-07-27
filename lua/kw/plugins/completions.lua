@@ -137,6 +137,7 @@ return {
                 { name = "nvim_lsp" },   -- lsp completions
                 { name = "luasnip" },    -- text from buffer
                 { name = "nvim_lua" },   -- Neovim Lua API
+                { name = "lazydev", group_index = 0}, -- make lazydev completions higher priority
                 { name = "treesitter" }, -- Treesitter
                 { name = "buffer" },     -- text from buffer
                 { name = "path" },       -- file system paths
