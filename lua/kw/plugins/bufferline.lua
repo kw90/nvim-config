@@ -10,20 +10,20 @@ return {
         end
         -- local colors = require("cyberdream.colors")
         local colors = {
-            bg = "#26242d",
-            bg_light = "#282c34",
-            bg_highlight = "#5ea1ff",
-            fg = "#a9b1d6",
-            fg_light = "#c0caf5",
-            fg_lighter = "#dcdfe4",
-            fg_highlight = "#eaeeee",
-            red = "#f7768e",
-            green = "#00ff00",
-            yellow = "#e0ff60",
-            blue = "#06a7f7",
-            magenta = "#ff00ff",
-            cyan = "#0db9d7",
-            orange = "#ff9e64",
+            bg = "#181818",
+            bg_light = "#282828",
+            bg_highlight = "#585858",
+            fg = "#888888",
+            fg_light = "#989898",
+            fg_lighter = "#a8a8a8",
+            fg_highlight = "#b8b8b8",
+            red = "#ab4642",
+            green = "#a1b56c",
+            yellow = "#f7ca88",
+            blue = "#7cafc2",
+            magenta = "#ba8baf",
+            cyan = "#86c1b9",
+            orange = "#dc9656",
         }
 
         bufferline.setup({
@@ -46,7 +46,7 @@ return {
                 color_icons = true, -- whether or not to add the filetype icon highlights
                 diagnostics_indicator = function(count, level)
                     local icon = level:match("error") and "" or ""
-                    return icon .. count
+                    return icon .. " " .. count
                 end,
                 get_element_icon = function(element)
                     -- element consists of {filetype: string, path: string, extension: string, directory: string}
