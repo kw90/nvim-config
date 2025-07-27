@@ -3,9 +3,11 @@ return {
     dependencies = {
         "williamboman/mason.nvim",
         "neovim/nvim-lspconfig",
+        "folke/neoconf.nvim",
     },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
+        require("neoconf").setup({})
         local mason_lspconfig = require("mason-lspconfig")
         local lspconfig = require("lspconfig")
 
@@ -13,12 +15,13 @@ return {
             ensure_installed = {
                 "basedpyright",
                 "ruff",
-                "lua_ls",
                 "pylsp",
-                "yamlls",
                 "marksman",
                 "bashls",
                 "sqlls",
+                "jsonls",
+                "yamlls",
+                "lua_ls",
                 "gopls",
             },
             automatic_installation = true,
