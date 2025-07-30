@@ -44,8 +44,8 @@ return {
             -- Keymaps
             keymaps = {
                 toggle = {
-                    normal = "<C-[>",            -- Normal mode keymap for toggling Claude Code, false to disable
-                    terminal = "<C-[>",          -- Terminal mode keymap for toggling Claude Code, false to disable
+                    normal = "<C-y>",            -- Normal mode keymap for toggling Claude Code, false to disable
+                    terminal = "<C-y>",          -- Terminal mode keymap for toggling Claude Code, false to disable
                     variants = {
                         continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
                         verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag

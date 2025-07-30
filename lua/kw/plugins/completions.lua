@@ -81,6 +81,7 @@ return {
             Misc = " ",
             Codeium = "",
             Minuet = "🤖",
+            Copilot = "🤖",
         }
         -- find more here: https://www.nerdfonts.com/cheat-sheet
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#00FF00" }) -- Green color
@@ -126,26 +127,28 @@ return {
                         buffer = "[Buffer]",
                         path = "[Path]",
                         codeium = "[Codeium]",
+                        copilot = "[Copilot]",
                         -- minuet = "[Minuet]",
                     })[entry.source.name]
                     return vim_item
                 end,
             },
             sources = cmp.config.sources({
+                { name = "nvim_lsp" },                 -- lsp completions
+                { name = "luasnip" },                  -- text from buffer
+                { name = "nvim_lua" },                 -- Neovim Lua API
+                { name = "lazydev",   group_index = 0 }, -- make lazydev completions higher priority
                 -- { name = "minuet" },     -- minuet for Claude et al.
-                { name = "codeium", keyword_length = 3, max_item_count = 5 },
-                { name = "nvim_lsp" },   -- lsp completions
-                { name = "luasnip" },    -- text from buffer
-                { name = "nvim_lua" },   -- Neovim Lua API
-                { name = "lazydev", group_index = 0}, -- make lazydev completions higher priority
+                { name = "codeium",   group_index = 1, keyword_length = 3, max_item_count = 5 },
+                { name = "copilot",   group_index = 2, keyword_length = 3, max_item_count = 5 },
                 { name = "treesitter" }, -- Treesitter
                 { name = "buffer" },     -- text from buffer
                 { name = "path" },       -- file system paths
 
             }),
             performance = {
-            --     -- It is recommended to increase the timeout duration due to the typically slower response speed of LLMs
-            --     -- compared to other completion sources. This is not needed when you only need manual completion.
+                --     -- It is recommended to increase the timeout duration due to the typically slower response speed of LLMs
+                --     -- compared to other completion sources. This is not needed when you only need manual completion.
                 debounce = 50,
                 throttle = 50,
                 fetching_timeout = 200,

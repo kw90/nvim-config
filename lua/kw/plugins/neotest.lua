@@ -52,7 +52,7 @@ return {
                 }),
             },
             discovery = {
-                enabled = true,
+                enabled = false,
                 concurrent = 4,
             },
             running = {
@@ -94,40 +94,41 @@ return {
         })
 
         -- Keymaps for neotest
+        neotest = require("neotest")
         vim.keymap.set("n", "<leader>tt", function()
-            require("neotest").run.run()
+            neotest.run.run()
         end, { desc = "Test: Run nearest" })
 
         vim.keymap.set("n", "<leader>tf", function()
-            require("neotest").run.run(vim.fn.expand("%"))
+            neotest.run.run(vim.fn.expand("%"))
         end, { desc = "Test: Run file" })
 
         vim.keymap.set("n", "<leader>tD", function()
-            require("neotest").run.run({ strategy = "dap" })
+            neotest.run.run({ strategy = "dap" })
         end, { desc = "Test: Debug nearest" })
 
         vim.keymap.set("n", "<leader>ts", function()
-            require("neotest").run.stop()
+            neotest.run.stop()
         end, { desc = "Test: Stop" })
 
         vim.keymap.set("n", "<leader>ta", function()
-            require("neotest").run.attach()
+            neotest.run.attach()
         end, { desc = "Test: Attach" })
 
         vim.keymap.set("n", "<leader>to", function()
-            require("neotest").output.open({ enter = true, auto_close = true })
+            neotest.output.open({ enter = true, auto_close = true })
         end, { desc = "Test: Show output" })
 
         vim.keymap.set("n", "<leader>tO", function()
-            require("neotest").output_panel.toggle()
+            neotest.output_panel.toggle()
         end, { desc = "Test: Toggle output panel" })
 
         vim.keymap.set("n", "<leader>tS", function()
-            require("neotest").summary.toggle()
+            neotest.summary.toggle()
         end, { desc = "Test: Toggle summary" })
 
         vim.keymap.set("n", "<leader>tw", function()
-            require("neotest").watch.toggle(vim.fn.expand("%"))
+            neotest.watch.toggle(vim.fn.expand("%"))
         end, { desc = "Test: Watch file" })
     end,
 }
